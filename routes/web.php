@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CatalogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Ruta /
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'getHome']);
+
 // Ruta Login
 Route::get('login', function () {
     return view('auth.login');
@@ -25,19 +26,13 @@ Route::get('logout', function () {
     return "Logout usuario";
 });
 // Ruta Catalogo
-Route::get('catalog', function () {
-    return view('catalog.index');
-});
-// Ruta Catalogo/Show => Parametros
-Route::get('catalog/show/{id}', function ($id) {
-    return view('catalog.show', array('id' => $id));
-});
-// Ruta Catalogo/Create
-Route::get('catalog/create', function () {
-    return view('catalog.create');
-});
-// Ruta Catalogo/Edit => Parametros
-Route::get('catalog/edit/{id}', function ($id) {
-    return view('catalog.edit', array('id' => $id));
-});
+Route::get('catalog', [CatalogController::class, 'getIndex']);
 
+// Ruta Catalogo/Show => Parametros
+Route::get('catalog/show/{id}', [CatalogController::class, 'getShow']);
+    
+// Ruta Catalogo/Create
+Route::get('catalog/create', [CatalogController::class, 'getCreate']);
+
+// Ruta Catalogo/Edit => Parametros
+Route::get('catalog/edit/{id}', [CatalogController::class, 'getEdit']);
